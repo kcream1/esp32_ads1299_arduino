@@ -1,0 +1,5 @@
+Record=TopLevelDocument|FileName=Main.SchDoc|SheetNumber=1
+Record=SheetSymbol|SourceDocument=Main.SchDoc|Designator=ESP32|SchDesignator=ESP32|FileName=ESP32_S3.SchDoc|SheetNumber=5|SymbolType=Normal|RawFileName=ESP32_S3.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Main.SchDoc|Designator=Other|SchDesignator=Other|FileName=Õ‚Œß.SchDoc|SheetNumber=2|SymbolType=Normal|RawFileName=Õ‚Œß.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Main.SchDoc|Designator=Power|SchDesignator=Power|FileName=Power.SchDoc|SheetNumber=3|SymbolType=Normal|RawFileName=Power.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Main.SchDoc|Designator=SD|SchDesignator=SD|FileName=SD NAND.SchDoc|SheetNumber=4|SymbolType=Normal|RawFileName=SD NAND.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
