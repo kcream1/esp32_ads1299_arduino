@@ -1,0 +1,146 @@
+
+
+#include "ads1299.h"
+
+boolean deviceIDReturned = false;
+boolean startedLogging = false;
+
+int DRDY=39, CS=10; //pin numbers for "Data Ready" (DRDY) and "Chip Select" CS (Datasheet, pg. 26)
+int outputCount;
+float tCLKs = 0.000666;
+
+const int ADS_START_PIN = 7; 
+const int ADS_RESET_PIN = 8;
+const int ADS_PWDN_PIN = 1;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+
+  SPI.begin(SCK,MISO,MOSI);
+  SPI.setClockDivider(SPI_CLOCK_DIV16); //Divides 16MHz clock by 16 to set CLK speed to 1MHz
+  SPI.setDataMode(SPI_MODE1);  //clock polarity = 0; clock phase = 1 (pg. 8)
+  SPI.setBitOrder(MSBFIRST);  //data format is MSB (pg. 25)
+
+  // SPI.begin(SCK,MISO,MOSI);
+  // SPI.setBitOrder(MSBFIRST);
+  // SPI.setDataMode(SPI_MODE1);
+  // SPI.setClockDivider(SPI_CLOCK_DIV16); // 设置SPI时钟分频
+
+  setup(DRDY, CS,outputCount);//初始化设备1
+  delay(10);
+
+  //初始化引脚START，RESET
+
+  pinMode(ADS_START_PIN, OUTPUT);
+  pinMode(ADS_RESET_PIN, OUTPUT);
+  pinMode(ADS_PWDN_PIN, OUTPUT);
+
+  digitalWrite(ADS_PWDN_PIN,HIGH);
+  digitalWrite(ADS_RESET_PIN,HIGH);
+  digitalWrite(ADS_START_PIN,LOW);
+
+
+  digitalWrite(ADS_START_PIN,HIGH);
+  START(CS);
+  delay(100);
+  SDATAC(CS);
+  delay(1000);
+
+  RESET(CS);//复位
+  delay(100);
+  //digitalWrite(ADS_RESET_PIN, LOW);
+  WAKEUP(CS,tCLKs);
+  delay(3000);
+
+  RREG(0x00,CS);
+  delay(100);
+  WREG(CONFIG1,0xbe,CS);
+  RREG(CONFIG1,CS);
+  delay(100);
+  WREG(CONFIG2,0xd5,CS);
+  RREG(CONFIG2,CS);
+  delay(200);
+  WREG(CONFIG3,0xd8,CS);
+  RREG(CONFIG3,CS);
+  delay(100);
+  WREG(MISC1,0x20,CS);
+  delay(100);
+
+  WREG(CH1SET,0x55,CS);
+  delay(100);
+  WREG(CH2SET,0x55,CS);
+  delay(100);
+  WREG(CH3SET,0x55,CS);
+  delay(100);
+  WREG(CH4SET,0x55,CS);
+  delay(100);
+  WREG(CH5SET,0x55,CS);
+  delay(100);
+  WREG(CH6SET,0x55,CS);
+  delay(100);
+  WREG(CH7SET,0x55,CS);
+  delay(100);
+  WREG(CH8SET,0x55,CS);
+  delay(100);
+  delay(3000);
+
+  RDATAC(CS);
+  delay(100);
+
+  RREG(CH1SET,CS);
+  delay(100);
+  RREG(CH2SET,CS);
+  delay(100);
+  RREG(CH3SET,CS);
+  delay(100);
+  RREG(CH4SET,CS);
+  delay(100);
+  RREG(CH5SET,CS);
+  delay(100);
+  RREG(CH6SET,CS);
+  delay(100);
+  RREG(CH7SET,CS);
+  delay(100);
+  RREG(CH8SET,CS);
+  delay(100);
+
+  digitalWrite(ADS_START_PIN,HIGH);
+  RDATA(CS);
+  delay(100);
+  START(CS);
+  digitalWrite(ADS_START_PIN,HIGH);
+  delay(1000);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  getDeviceID(CS);
+  delay(1000);
+
+  // WREG(CONFIG2,0xd5,CS);
+  // delay(1000);
+  // RREG(CONFIG2,CS);
+  // delay(1000);
+  // RREG(CH1SET,CS);
+  // delay(1000);
+  // RREG(CH2SET,CS);
+  // delay(100);
+  // RREG(CH3SET,CS);
+  // delay(100);
+  // RREG(CH4SET,CS);
+  // delay(100);
+  // RREG(CH5SET,CS);
+  // delay(100);
+  // RREG(CH6SET,CS);
+  // delay(100);
+  // RREG(CH7SET,CS);
+  // delay(100);
+  // RREG(CH8SET,CS);
+  // delay(100);
+
+  updateData(DRDY,CS,outputCount);  
+
+}
+
+
