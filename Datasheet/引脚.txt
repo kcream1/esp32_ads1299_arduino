@@ -1,0 +1,33 @@
+我现在需要啥设置esp32s3为主机模式，从机设置成四块ads1299芯片，形成菊花链，你能写一下具体的arduino的代码吗？要详细的引脚配置如下
+cs0 -> io10
+cs1 -> io9
+cs2 -> io46
+cs3 -> io3
+MOSI -> io11
+clk -> io12
+MISO -> io13
+ADS_DRDY1 -> io39
+ADS_DRDY2 -> io40
+ADS_DRDY3 -> io41
+ADS_DRDY4 -> io42
+ADS_START -> io7
+ADS_RESET -> io8
+ADS_PWDN -> io1
+NTAG_FD -> io35
+I2C_SDA -> io4
+I2C_SCL -> io5
+
+
+你知道ads1299芯片有一个内部测试信号这个东西吗？我需求读取ads1299的8个通道的内部测试信号值，八个通道的地址分别从0x05到0x0c，
+我查了相关的资料，需要配置CHnSET寄存器为00001101才能测试内部测试信号，CHnSET寄存器中n代表通道号分别是从1-8个通道，
+我还引出了ADS_START和ADS_RESET、ADS_PWDN 引脚单片机相连，我还封装和了WAKEUP  STANDBY RESET   START   STOP    RDATAC  SDATAC  RDATA 这些命令为函数
+但是读取命令和写入命令还没封装，我需要你帮封装读取和写入命令的函数
+我使用的是esp32s3单片机，用spi通信，使用的是arduino编程的下面的相关的配置引脚
+cs0 -> io10
+ADS_DRDY1 -> io39
+MOSI -> io11
+clk -> io12
+MISO -> io13
+ADS_START -> io7
+ADS_RESET -> io8
+ADS_PWDN -> io1
